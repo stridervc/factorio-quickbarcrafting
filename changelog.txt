@@ -1,0 +1,9 @@
+Version 0.1.2
+	* Added changelog
+	* Option in settings to disable text notification
+
+Version 0.1.1
+	* Work for all players in a multiplayer game
+
+Version 0.1.0
+	* First release

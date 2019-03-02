@@ -16,6 +16,7 @@ function autoCraft(player)
 
 	local minimum = config["quickbarcrafting-minimum"].value
 	local craftamount = config["quickbarcrafting-craft-amount"].value
+	local notify = config["quickbarcrafting-notify"].value
 
 	-- get the primary quick bar 
 	local qbp = player.get_active_quick_bar_page(1)*10
@@ -28,7 +29,7 @@ function autoCraft(player)
 			local recipe = game.recipe_prototypes[item.name]
 			if recipe ~= nil and recipe.allow_as_intermediate then
 				if player.begin_crafting({count=craftamount, recipe=item.name, silent=true}) > 0 then
-					player.print("Quick Bar Crafting " .. item.name)
+					if notify then player.print("Quick Bar Crafting " .. item.name) end
 					return	-- stop at first item to craft
 				end
 			end

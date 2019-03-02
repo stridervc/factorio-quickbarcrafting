@@ -7,7 +7,7 @@ rm -f /tmp/$ZIPFILE
 rm -rf /tmp/$NAME
 
 mkdir /tmp/$NAME
-cp -r *lua *json locale LICENSE /tmp/$NAME/
+cp -r *lua *json locale LICENSE changelog.txt /tmp/$NAME/
 
 pushd /tmp
 zip -r $ZIPFILE $NAME

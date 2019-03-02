@@ -10,11 +10,21 @@ data:extend({
 
 data:extend({
 	{
+		name = "quickbarcrafting-notify",
+		type = "bool-setting",
+		setting_type = "runtime-per-user",
+		default_value = true,
+		order = "b"
+	}
+})
+
+data:extend({
+	{
 		name = "quickbarcrafting-minimum",
 		type = "int-setting",
 		setting_type = "runtime-per-user",
 		default_value = 10,
-		order = "b"
+		order = "c"
 	}
 })
 
@@ -25,6 +35,6 @@ data:extend({
 		type = "int-setting",
 		setting_type = "runtime-per-user",
 		default_value = 5,
-		order = "c"
+		order = "d"
 	}
 })
