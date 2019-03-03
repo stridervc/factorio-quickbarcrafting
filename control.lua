@@ -12,6 +12,7 @@ function autoCraft(player)
 	local config = settings.get_player_settings(player)
 
 	if not config["quickbarcrafting-enabled"].value then return end
+	if player.character == nil then return end
 	if player.crafting_queue_size ~= 0 then return end
 
 	local minimum = config["quickbarcrafting-minimum"].value
