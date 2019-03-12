@@ -15,25 +15,48 @@ function autoCraft(player)
 	if player.character == nil then return end
 	if player.crafting_queue_size ~= 0 then return end
 
+	-- process primary quick bar
+	local bar = player.get_active_quick_bar_page(1)*10
+	if craftQB(player, bar) then return end
+
+	local secondary = config["quickbarcrafting-craft-secondary"].value or false
+	local all = config["quickbarcrafting-craft-all"].value or false
+
+	-- process secondary quickbar
+	if secondary or all then
+		local bar = player.get_active_quick_bar_page(2)*10
+		if craftQB(player, bar) then return end
+	end
+
+	-- process all quick bars
+	if all then
+		for bar = 0,9 do 
+			if craftQB(player, bar*10) then return end
+		end
+	end
+end
+
+-- Perform crafting in specified quick bar for player
+-- returns true if something queued, false otherwise
+function craftQB(player, bar)
+	local config = settings.get_player_settings(player)
 	local minimum = config["quickbarcrafting-minimum"].value
 	local craftamount = config["quickbarcrafting-craft-amount"].value
 	local notify = config["quickbarcrafting-notify"].value
 
-	-- get the primary quick bar 
-	local qbp = player.get_active_quick_bar_page(1)*10
-
-	-- loop through each item in the primary quick bar
+	-- loop through each item in the quick bar
 	for i = 1,10 do
-		local item = player.get_quick_bar_slot(qbp+i)
+		local item = player.get_quick_bar_slot(bar+i)
 		if item ~= nil and player.get_item_count(item.name) < minimum then
 			-- check if this item can be crafted
 			local recipe = game.recipe_prototypes[item.name]
 			if recipe ~= nil and recipe.allow_as_intermediate then
 				if player.begin_crafting({count=craftamount, recipe=item.name, silent=true}) > 0 then
 					if notify then player.print("Quick Bar Crafting " .. item.name) end
-					return	-- stop at first item to craft
+					return true	-- stop at first item to craft
 				end
 			end
 		end
 	end
+	return false
 end

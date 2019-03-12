@@ -38,3 +38,23 @@ data:extend({
 		order = "d"
 	}
 })
+
+data:extend({
+	{
+		name = "quickbarcrafting-craft-secondary",
+		type = "bool-setting",
+		setting_type = "runtime-per-user",
+		default_value = false,
+		order = "e"
+	}
+})
+
+data:extend({
+	{
+		name = "quickbarcrafting-craft-all",
+		type = "bool-setting",
+		setting_type = "runtime-per-user",
+		default_value = false,
+		order = "f"
+	}
+})
