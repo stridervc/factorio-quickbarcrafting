@@ -13,3 +13,9 @@ pushd /tmp
 zip -r $ZIPFILE $NAME
 popd
 mv /tmp/$ZIPFILE .
+
+# update my own mod
+pushd ~/.factorio/mods
+rm -f QuickBarCrafting*zip
+ln ~/devel/factorio/quickbarcrafting/$ZIPFILE
+popd
