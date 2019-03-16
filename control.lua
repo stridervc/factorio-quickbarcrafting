@@ -16,7 +16,7 @@ function autoCraft(player)
 	if player.crafting_queue_size ~= 0 then return end
 
 	-- process primary quick bar
-	local bar = player.get_active_quick_bar_page(1)*10
+	local bar = player.get_active_quick_bar_page(1)
 	if craftQB(player, bar) then return end
 
 	local secondary = config["quickbarcrafting-craft-secondary"].value or false
@@ -24,14 +24,14 @@ function autoCraft(player)
 
 	-- process secondary quickbar
 	if secondary or all then
-		local bar = player.get_active_quick_bar_page(2)*10
+		local bar = player.get_active_quick_bar_page(2)
 		if craftQB(player, bar) then return end
 	end
 
 	-- process all quick bars
 	if all then
-		for bar = 0,9 do 
-			if craftQB(player, bar*10) then return end
+		for bar = 1,10 do
+			if craftQB(player, bar) then return end
 		end
 	end
 end
@@ -44,9 +44,12 @@ function craftQB(player, bar)
 	local craftamount = config["quickbarcrafting-craft-amount"].value
 	local notify = config["quickbarcrafting-notify"].value
 
+	local bar = bar - 1		-- Fix for 0.17.2, won't be surprised if this needs fixing again
+
 	-- loop through each item in the quick bar
 	for i = 1,10 do
-		local item = player.get_quick_bar_slot(bar+i)
+		local item = player.get_quick_bar_slot(bar*10+i)
+
 		if item ~= nil and player.get_item_count(item.name) < minimum then
 			-- check if this item can be crafted
 			local recipe = game.recipe_prototypes[item.name]
