@@ -1,0 +1,5 @@
+* Craft up to a stack
+* Craft the item we have the fewest of first
+* Whole new UI to define what to craft and how many? Like logistics slots?
+* Button to right of quick bars to enable/disable
+

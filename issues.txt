@@ -1,0 +1,1 @@
+* Will craft an item before it's researched, eg: splitters early game
